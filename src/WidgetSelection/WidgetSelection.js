@@ -6,7 +6,7 @@ class WidgetSelection extends Component {
 
 	constructor(){
 	  super()
-	  this.state = {isSelectionHidden: true, coinlist: [], checkedCoins: [], currentCoinList: []} //initialize state object (for state.coinlist)
+	  this.state = {isSelectionHidden: true, coinlist: [], checkedCoins: [], currentCoinList: [], searchstring: ""} //initialize state object (for state.coinlist)
 	}
 
 	componentDidMount() {
@@ -23,7 +23,7 @@ class WidgetSelection extends Component {
 		fetch('https://api.coinmarketcap.com/v1/ticker/?convert=EUR').then((response) => {
 		  return response.json();
 		}).then((myJson) => {
-		  this.setState({coinlist: myJson, currentCoinList: myJson});
+		  this.setState({coinlist: myJson, currentCoinList: this.state.searchstring !== "" ? this.state.currentCoinList : myJson});
 		});
 	}
 
@@ -53,7 +53,8 @@ class WidgetSelection extends Component {
       return coindata.id.toLowerCase().includes(e.target.value.toLowerCase())
     });
     this.setState({
-      currentCoinList: e.target.value !== "" ? searchResult : this.state.coinlist
+      currentCoinList: e.target.value !== "" ? searchResult : this.state.coinlist,
+      searchstring: e.target.value
     })
 
 	}
@@ -67,7 +68,7 @@ class WidgetSelection extends Component {
 					<button className="selectionToggle" onClick={this.onSelectionToggle}>{this.state.isSelectionHidden ? 'SHOW ALL' : 'HIDE ALL'}</button>
 				</div>
 
-				{!this.state.isSelectionHidden ? <input onChange={this.onChangeSearch} className="selectionSearch" type="text" placeholder="search..." /> : null}
+				{!this.state.isSelectionHidden ? <input onChange={this.onChangeSearch} className="selectionSearch" type="text" placeholder="search for more ..." value={this.state.searchstring} /> : null}
 				<div className="coinlist">
 				  {this.state.currentCoinList && !this.state.isSelectionHidden
 				    ? this.state.currentCoinList.slice(0, 50).map( (coin) => {
