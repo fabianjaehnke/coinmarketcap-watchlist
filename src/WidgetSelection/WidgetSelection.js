@@ -50,7 +50,7 @@ class WidgetSelection extends Component {
 	onChangeSearch = (e) => {
 
     let searchResult = this.state.coinlist.filter( (coindata) => {
-      return coindata.id.toLowerCase().includes(e.target.value.toLowerCase())
+      return coindata.id.toLowerCase().includes(e.target.value.toLowerCase()) || coindata.symbol.toLowerCase().includes(e.target.value.toLowerCase())
     });
     this.setState({
       currentCoinList: e.target.value !== "" ? searchResult : this.state.coinlist,
@@ -65,32 +65,33 @@ class WidgetSelection extends Component {
 			<div>
 
 				<div className="controlpanel">
-					<button className="selectionToggle" onClick={this.onSelectionToggle}>{this.state.isSelectionHidden ? 'SHOW ALL' : 'HIDE ALL'}</button>
-				</div>
+					<button className="selectionToggle" onClick={this.onSelectionToggle}>{this.state.isSelectionHidden ? 'SHOW COINLIST' : 'HIDE COINLIST'}</button>
 
-				{!this.state.isSelectionHidden ? <input onChange={this.onChangeSearch} className="selectionSearch" type="text" placeholder="search for more ..." value={this.state.searchstring} /> : null}
-				<div className="coinlist">
-				  {this.state.currentCoinList && !this.state.isSelectionHidden
-				    ? this.state.currentCoinList.slice(0, 50).map( (coin) => {
-				        return <div key={coin.id} id={coin.id} className="coinelement">
-				          <input type="checkbox" onChange={this.onChange} value={coin.id} checked={
-				            this.state.checkedCoins.some( (coinId) => {
-				              return coinId === coin.id
-				            })
-				          }/>
-				          {/*coin.symbol*/}
-				          <img src={`https://files.coinmarketcap.com/static/img/coins/32x32/${coin.id}.png`} alt={coin.name}/>
-				          &nbsp;{coin.name}
-				        </div>
-				      })
-				    : null
-				  }
+					{!this.state.isSelectionHidden ? <input onChange={this.onChangeSearch} className="selectionSearch" type="text" placeholder="search for more ..." value={this.state.searchstring} /> : null}
+					<div className="coinlist">
+					  {this.state.currentCoinList && !this.state.isSelectionHidden
+					    ? this.state.currentCoinList.slice(0, 50).map( (coin) => {
+					        return <div key={coin.id} id={coin.id} className="coinelement">
+					          <input type="checkbox" onChange={this.onChange} value={coin.id} checked={
+					            this.state.checkedCoins.some( (coinId) => {
+					              return coinId === coin.id
+					            })
+					          }/>
+					          {/*coin.symbol*/}
+					          <img src={`https://files.coinmarketcap.com/static/img/coins/32x32/${coin.id}.png`} alt={coin.name}/>
+					          &nbsp;{coin.name}
+					        </div>
+					      })
+					    : null
+					  }
+					</div>
+
 				</div>
 
 
 				<WidgetList coins={this.state.coinlist.filter( (coin) => {
 			    return this.state.checkedCoins.indexOf(coin.id) !== -1
-			  } )} />
+			  } )}  />
 
 
 			</div>

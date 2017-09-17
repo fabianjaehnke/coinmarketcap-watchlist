@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './CoinWidget.css'
+import CSSTransition from 'react-transition-group/CSSTransition'; // ES6
 
 class CoinWidget extends Component {
 
 	render() {
-		const { coin } = this.props //destructuring assignment
+		const {coin, ...transitionProps} = this.props // rest operator
+		//const { coin } = this.props //destructuring assignment
 
 		let lastUpdate = new Date(coin.last_updated*1000);
 		let hours = ("0" + lastUpdate.getHours()).substr(-2)
@@ -13,7 +15,14 @@ class CoinWidget extends Component {
 		// Seconds part from the timestamp
 		let seconds = ("0" + lastUpdate.getSeconds()).substr(-2)
 
+
 		return(
+			<CSSTransition
+				{...transitionProps /*spread operator*/}
+			  timeout={2000}
+			  classNames="coinwidget-fade"
+			>
+
 			<div className="coinwidget">
 				<div className="coinwidget-inner">
 					<img src={`https://files.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`} alt={coin.id}/>
@@ -22,9 +31,15 @@ class CoinWidget extends Component {
 						<h3>$ {Math.round(coin.price_usd * 100) / 100}<br />
 						€ {Math.round(coin.price_eur * 100) / 100}</h3>
 						<p><small>updated: {`${hours}:${minutes}:${seconds}`}</small></p>
+						<div className="coindetails">
+							<small>1h:</small> {coin.percent_change_1h}% <br />
+							<small>24h:</small> {coin.percent_change_24h}% <br />
+							<small>7d:</small> {coin.percent_change_7d}% <br />
+						</div>
 					</div>
 				</div>
 			</div>
+			</CSSTransition>
 		)
 	}
 }

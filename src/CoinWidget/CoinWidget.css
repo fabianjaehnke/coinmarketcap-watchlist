@@ -37,3 +37,21 @@
 	  width: 25%;
 	}
 }
+
+
+.coinwidget-fade-enter {
+  opacity: 0.01;
+}
+
+.coinwidget-fade-enter.coinwidget-fade-enter-active {
+  opacity: 1;
+  transition: opacity 2000ms ease-in;
+}
+.coinwidget-fade-exit {
+  opacity: 1;
+}
+
+.coinwidget-fade-exit.coinwidget-fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
