@@ -1,0 +1,16 @@
+
+button:focus,
+button:active,
+input:focus,
+input:active{
+  outline: none;
+}
+
+
+.App-header {
+  background-color: #222;
+  padding: 1px;
+  color: white;
+  text-align: center
+}
+
