@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CryptoWatch",
+  "name": "Coinmarketcap Watchlist",
   "icons": [
     {
       "src": "favicon.ico",

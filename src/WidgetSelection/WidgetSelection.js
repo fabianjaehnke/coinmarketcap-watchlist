@@ -11,7 +11,8 @@ class WidgetSelection extends Component {
 
 	componentDidMount() {
 		this.fetchData()
-	  setInterval( this.fetchData, 60000)
+		let duration = 60000
+	  setInterval( this.fetchData, duration)
 
 
 	  if ( localStorage.getItem("mycoins") ) {
@@ -50,7 +51,9 @@ class WidgetSelection extends Component {
 	onChangeSearch = (e) => {
 
     let searchResult = this.state.coinlist.filter( (coindata) => {
-      return coindata.id.toLowerCase().includes(e.target.value.toLowerCase()) || coindata.symbol.toLowerCase().includes(e.target.value.toLowerCase())
+      return 	coindata.id.toLowerCase().includes(e.target.value.toLowerCase()) ||
+							coindata.symbol.toLowerCase().includes(e.target.value.toLowerCase()) ||
+							coindata.name.toLowerCase().includes(e.target.value.toLowerCase())
     });
     this.setState({
       currentCoinList: e.target.value !== "" ? searchResult : this.state.coinlist,
