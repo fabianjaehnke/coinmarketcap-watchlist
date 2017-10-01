@@ -3,6 +3,19 @@ import './CoinWidget.css'
 import CSSTransition from 'react-transition-group/CSSTransition'; // ES6
 
 class CoinWidget extends Component {
+	constructor() {
+		super();
+		this.state = {
+			shown: true,
+		};
+	}	
+
+	toggle() {
+		this.setState({
+			shown: !this.state.shown
+		});
+	}
+
 
 	render() {
 		const {coin, ...transitionProps} = this.props // rest operator
@@ -15,6 +28,9 @@ class CoinWidget extends Component {
 		// Seconds part from the timestamp
 		let seconds = ("0" + lastUpdate.getSeconds()).substr(-2)
 
+		var shown = {
+			display: this.state.shown ? "none" : "block"
+		};
 
 		return(
 			<CSSTransition
@@ -23,15 +39,16 @@ class CoinWidget extends Component {
 			  classNames="coinwidget-fade"
 			>
 
-			<div className="coinwidget">
+			<div className="coinwidget" onClick={this.toggle.bind(this)}>
 				<div className="coinwidget-inner">
 					<img src={`https://files.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`} alt={coin.id}/>
 					<div>
 						<h2>{coin.name} ({coin.symbol})</h2>
-						<h3>$ {Math.round(coin.price_usd * 100) / 100}<br />
-						€ {Math.round(coin.price_eur * 100) / 100}</h3>
-						<p><small>updated: {`${hours}:${minutes}:${seconds}`}</small></p>
-						<div className="coindetails">
+						<h3>$ {Math.round(coin.price_usd * 10000) / 10000}</h3>
+						<h3 style={ shown }>€ {Math.round(coin.price_eur * 10000) / 10000}</h3>
+						<h3 style={ shown }>B {Math.round(coin.price_btc * 10000) / 10000}</h3>
+						<p style={ shown }><small>updated: {`${hours}:${minutes}:${seconds}`}</small></p>
+						<div style={ shown } className="coindetails">
 							<small>1h:</small> {coin.percent_change_1h}% <br />
 							<small>24h:</small> {coin.percent_change_24h}% <br />
 							<small>7d:</small> {coin.percent_change_7d}% <br />
