@@ -21,14 +21,14 @@ class WidgetSelection extends Component {
 	}
 
 	fetchData = () => {
-		fetch('https://api.coinmarketcap.com/v1/ticker/?convert=EUR').then((response) => {
+		fetch('https://api.coinmarketcap.com/v1/ticker/?convert=EUR&limit=0').then((response) => {
 		  return response.json();
 		}).then((myJson) => {
 		  this.setState({coinlist: myJson, currentCoinList: this.state.searchstring !== "" ? this.state.currentCoinList : myJson});
 		});
 	}
 
-	onChange = (event) => { //Arrowfunction, this is App
+	onChange = (event) => { //Arrowfunction, this is WidgetSelection
 	  let newcheckedCoins = this.state.checkedCoins.map( (coin) => coin )
 	  if (event.target.checked) {
 	    // this.setState({checkedCoins: [...this.state.checkedCoins, event.target.value]}) //... spread operator

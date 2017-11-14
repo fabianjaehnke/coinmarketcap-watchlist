@@ -15,7 +15,11 @@ class CoinWidget extends Component {
 			shown: !this.state.shown
 		});
 	}
-
+	componentDidMount() {
+		if ( localStorage.getItem('shownWidgets') ) {
+			this.setState( {shown: localStorage.getItem('shownWidgets')} )
+		}
+	}
 
 	render() {
 		const {coin, ...transitionProps} = this.props // rest operator
