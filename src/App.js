@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h1>Coinmarketcap Watchlist</h1>
+          <h1>CMC Watchlist</h1>
         </div>
 
 
