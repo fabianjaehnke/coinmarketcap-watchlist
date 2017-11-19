@@ -1,3 +1,15 @@
+@font-face { font-family: BTC; src: url(../assets/fonts/BTC.ttf); }
+.btc {
+  font-family: "BTC";
+  line-height: initial;
+}
+.h3{
+  font-size: 1.17em;
+}
+.h3 > *{
+  display: inline-block;
+  width: 15px;
+}
 .coinwidget{
   display: flex;
   width: 100%;

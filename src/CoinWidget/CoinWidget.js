@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './CoinWidget.css'
 import CSSTransition from 'react-transition-group/CSSTransition'; // ES6
+import DeleteConfirm from 'react-delete-confirm';
 
 class CoinWidget extends Component {
 	constructor() {
@@ -21,6 +22,28 @@ class CoinWidget extends Component {
 		}
 	}
 
+	calculateDigits(price) {
+		switch (true) {
+			//0.00000001 = 1 Satoshi
+			case (price < 0.001):
+				return price;
+
+			case (price < 0.01):
+				return Math.round(price * 10000) / 10000;
+			
+			case (price < 0.1):
+				return Math.round(price * 1000) / 1000;
+
+			case (price < 0):
+				return Math.round(price * 1000) / 1000;
+				
+			default:
+				return Math.round(price * 100) / 100;
+				
+		}
+	};
+
+
 	render() {
 		const {coin, ...transitionProps} = this.props // rest operator
 		//const { coin } = this.props //destructuring assignment
@@ -36,6 +59,7 @@ class CoinWidget extends Component {
 			display: this.state.shown ? "none" : "block"
 		};
 
+
 		return(
 			<CSSTransition
 				{...transitionProps /*spread operator*/}
@@ -48,14 +72,19 @@ class CoinWidget extends Component {
 					<img src={`https://files.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`} alt={coin.id}/>
 					<div>
 						<h2>{coin.name} ({coin.symbol})</h2>
-						<h3>$ {Math.round(coin.price_usd * 10000) / 10000}</h3>
-						<h3 style={ shown }>€ {Math.round(coin.price_eur * 10000) / 10000}</h3>
-						<h3 style={ shown }>B {Math.round(coin.price_btc * 10000) / 10000}</h3>
-						<p style={ shown }><small>updated: {`${hours}:${minutes}:${seconds}`}</small></p>
+						
+						<div className="h3"><strong>$</strong> {this.calculateDigits(coin.price_usd)}</div>
+
 						<div style={ shown } className="coindetails">
+							<div className="h3"><strong>€</strong> {this.calculateDigits(coin.price_eur)}</div>
+							<div className="h3"><span className="btc">BTC</span> {this.calculateDigits(coin.price_btc)}</div>
+							<br />
 							<small>1h:</small> {coin.percent_change_1h}% <br />
 							<small>24h:</small> {coin.percent_change_24h}% <br />
 							<small>7d:</small> {coin.percent_change_7d}% <br />
+							<br />
+							<span style={ shown }><small>updated: {`${hours}:${minutes}:${seconds}`}</small></span>
+							
 						</div>
 					</div>
 				</div>

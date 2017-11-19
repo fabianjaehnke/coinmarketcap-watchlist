@@ -32,6 +32,7 @@
     "promise": "8.0.1",
     "react": "^15.6.1",
     "react-burger-menu": "^2.1.6",
+    "react-delete-confirm": "^1.0.1",
     "react-dev-utils": "^4.0.1",
     "react-dom": "^15.6.1",
     "react-transition-group": "^2.2.0",
