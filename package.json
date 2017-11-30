@@ -35,7 +35,6 @@
     "react-burger-menu": "^2.1.6",
     "react-dev-utils": "^4.0.1",
     "react-dom": "^15.6.1",
-    "react-swipe-to-delete-component": "^0.3.3",
     "react-transition-group": "^2.2.0",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",

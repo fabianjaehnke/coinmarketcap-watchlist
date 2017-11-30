@@ -5,8 +5,8 @@ import './WidgetSelection.css'
 class WidgetSelection extends Component {
 
 	constructor(){
-	  super()
-	  this.state = {isSelectionHidden: true, coinlist: [], checkedCoins: [], currentCoinList: [], searchstring: ""} //initialize state object (for state.coinlist)
+	  super();
+		this.state = {isSelectionHidden: true, coinlist: [], checkedCoins: [], currentCoinList: [], searchstring: ""} //initialize state object (for state.coinlist)
 	}
 
 	componentDidMount() {
@@ -18,6 +18,12 @@ class WidgetSelection extends Component {
 	  if ( localStorage.getItem("mycoins") ) {
 	    this.setState( {checkedCoins: JSON.parse( localStorage.getItem("mycoins") )}  )
 	  }
+	}
+
+	componentDidUpdate(prevProps, prevState){
+		if (prevState.checkedCoins !== this.state.checkedCoins) {
+			localStorage.setItem("mycoins", JSON.stringify(this.state.checkedCoins))
+		}
 	}
 
 	fetchData = () => {
@@ -37,10 +43,19 @@ class WidgetSelection extends Component {
 	    newcheckedCoins = this.state.checkedCoins.filter(function(coin){
 	      return coin !== event.target.value;
 	    });
-	  }
-	  this.setState({checkedCoins: newcheckedCoins}, () => {
-	    localStorage.setItem('mycoins', JSON.stringify(this.state.checkedCoins))
-	  } )
+		}
+		this.setState({checkedCoins: newcheckedCoins})
+	  // this.setState({checkedCoins: newcheckedCoins}, () => {
+	  //   localStorage.setItem('mycoins', JSON.stringify(this.state.checkedCoins))
+	  // } )
+
+	}
+
+	uncheckCoinAndDeleteWidget = (coinID) =>{
+		const newcheckedCoins = this.state.checkedCoins.filter(function(coin){
+			return coin !== coinID;
+		});
+		this.setState( {checkedCoins: newcheckedCoins} );
 
 	}
 
@@ -61,6 +76,8 @@ class WidgetSelection extends Component {
     })
 
 	}
+
+
 
 	render() {
 		// const { coin } = this.props //destructuring assignment
@@ -91,11 +108,10 @@ class WidgetSelection extends Component {
 
 				</div>
 
-
+				
 				<WidgetList coins={this.state.coinlist.filter( (coin) => {
-			    return this.state.checkedCoins.indexOf(coin.id) !== -1
-			  } )}  />
-
+					return this.state.checkedCoins.indexOf(coin.id) !== -1
+				} )} onDeleteWidget={this.uncheckCoinAndDeleteWidget} />
 
 			</div>
 		);

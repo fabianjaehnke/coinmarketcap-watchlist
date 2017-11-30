@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './CoinWidget.css'
 import CSSTransition from 'react-transition-group/CSSTransition'; // ES6
-import DeleteConfirm from 'react-delete-confirm';
+// import DeleteConfirm from 'react-delete-confirm';
 
 class CoinWidget extends Component {
 	constructor() {
@@ -11,7 +11,7 @@ class CoinWidget extends Component {
 		};
 	}	
 
-	toggle() {
+	toggle = () => {
 		this.setState({
 			shown: !this.state.shown
 		});
@@ -43,9 +43,12 @@ class CoinWidget extends Component {
 		}
 	};
 
+	removeWidget = () => {
+		this.props.deleteFromList(this.props.coin.id)
+	}
 
 	render() {
-		const {coin, ...transitionProps} = this.props // rest operator
+		const {coin, deleteFromList, ...transitionProps} = this.props // rest operator
 		//const { coin } = this.props //destructuring assignment
 
 		let lastUpdate = new Date(coin.last_updated*1000);
@@ -67,11 +70,18 @@ class CoinWidget extends Component {
 			  classNames="coinwidget-fade"
 			>
 
-			<div className="coinwidget" onClick={this.toggle.bind(this)}>
+			<div className="coinwidget" onClick={this.toggle}>
 				<div className="coinwidget-inner">
-					<img src={`https://files.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`} alt={coin.id}/>
-					<div>
-						<h2>{coin.name} ({coin.symbol})</h2>
+					<div className="coinwidget--left">
+						<img src={`https://files.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`} alt={coin.id}/>
+						
+						<strong style={ shown } >{coin.symbol}</strong>
+						 <div className="button-delete">
+						 	<button style={ shown } onClick={this.removeWidget}>delete</button>
+						</div>
+					</div>
+					<div className="coinwidget--right">
+						<h2>{coin.name}</h2>
 						
 						<div className="h3"><strong>$</strong> {this.calculateDigits(coin.price_usd)}</div>
 
@@ -83,7 +93,7 @@ class CoinWidget extends Component {
 							<small>24h:</small> {coin.percent_change_24h}% <br />
 							<small>7d:</small> {coin.percent_change_7d}% <br />
 							<br />
-							<span style={ shown }><small>updated: {`${hours}:${minutes}:${seconds}`}</small></span>
+							<span><small>updated: {`${hours}:${minutes}:${seconds}`}</small></span>
 							
 						</div>
 					</div>
