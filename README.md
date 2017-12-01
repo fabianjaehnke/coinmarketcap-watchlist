@@ -2,7 +2,11 @@
 
 personal watchlist for cyptos
 
-Demo:
+## Status
+Work in progress
+
+
+## Demo
 https://fabianjaehnke.github.io/coinmarketcap-watchlist/
-https://guarded-fortress-38746.herokuapp.com/
+
 

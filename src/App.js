@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import WidgetSelection from './WidgetSelection/WidgetSelection.js';
 
@@ -11,16 +12,13 @@ class App extends Component {
 
   render() {
     return (
+      <MuiThemeProvider>
       <div className="App">
-        <div className="App-header">
-          <h1>CMC Watchlist</h1>
-        </div>
-
-
 
         <WidgetSelection />
 
       </div>
+      </MuiThemeProvider>
     );
   }
 

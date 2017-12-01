@@ -13,7 +13,7 @@
 .controlpanel{
 	/*display: flex;*/
 	margin-bottom: 1rem;
-	border-bottom: .2rem solid red;
+	/* border-bottom: .2rem solid red; */
 }
 
 button.selectionToggle{
@@ -42,9 +42,32 @@ button.selectionToggle{
 .coinelement{
   display: inline-block;
   width: 50%;
-  padding: 7px 0 7px 0;
+  /* padding: 7px 0 7px 0; */
   display: flex;
   align-items: center;
+}
+.coinelement input{
+	position: absolute;
+	z-index: 1;
+	opacity: 0;
+}
+.coinelement label{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: .5rem;
+	margin: .5rem;
+}
+.coinelement label svg{
+	margin-left: auto;
+}
+.coinelement input:checked + label{
+	background: rgb(228, 228, 228);
+	font-style: italic;
+}
+.coinelement label img{
+	margin-right: .5rem;
 }
 
 @media(min-width: 768px) {

@@ -3,6 +3,13 @@ import './CoinWidget.css'
 import CSSTransition from 'react-transition-group/CSSTransition'; // ES6
 // import DeleteConfirm from 'react-delete-confirm';
 
+import IconButton from 'material-ui/IconButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import ActionRemoveCircleOutline from 'material-ui/svg-icons/content/remove-circle-outline';
+import ActionArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import ActionArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+
+
 class CoinWidget extends Component {
 	constructor() {
 		super();
@@ -47,6 +54,15 @@ class CoinWidget extends Component {
 		this.props.deleteFromList(this.props.coin.id)
 	}
 
+
+	showOpenOrCloseStatus(){
+		if (this.state.shown) {
+			return <ActionArrowDown className="icon-open-close" />
+		}	else{
+			return <ActionArrowUp className="icon-open-close" />
+		}
+	}
+
 	render() {
 		const {coin, deleteFromList, ...transitionProps} = this.props // rest operator
 		//const { coin } = this.props //destructuring assignment
@@ -62,7 +78,6 @@ class CoinWidget extends Component {
 			display: this.state.shown ? "none" : "block"
 		};
 
-
 		return(
 			<CSSTransition
 				{...transitionProps /*spread operator*/}
@@ -76,14 +91,15 @@ class CoinWidget extends Component {
 						<img src={`https://files.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`} alt={coin.id}/>
 						
 						<strong style={ shown } >{coin.symbol}</strong>
-						 <div className="button-delete">
-						 	<button style={ shown } onClick={this.removeWidget}>delete</button>
-						</div>
+
 					</div>
 					<div className="coinwidget--right">
+
 						<h2>{coin.name}</h2>
-						
-						<div className="h3"><strong>$</strong> {this.calculateDigits(coin.price_usd)}</div>
+						<div className="price-default">
+							<div className="h3"><strong>$</strong> {this.calculateDigits(coin.price_usd)}</div>
+							{this.showOpenOrCloseStatus()}
+						</div>
 
 						<div style={ shown } className="coindetails">
 							<div className="h3"><strong>€</strong> {this.calculateDigits(coin.price_eur)}</div>
@@ -94,7 +110,9 @@ class CoinWidget extends Component {
 							<small>7d:</small> {coin.percent_change_7d}% <br />
 							<br />
 							<span><small>updated: {`${hours}:${minutes}:${seconds}`}</small></span>
-							
+							<div style={ shown } className="button-delete">			 
+								<IconButton><ActionRemoveCircleOutline onClick={this.removeWidget} /></IconButton>
+			 				</div>
 						</div>
 					</div>
 				</div>

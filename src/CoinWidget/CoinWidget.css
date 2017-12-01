@@ -24,9 +24,7 @@
   align-items: flex-start;
 }
 
-/* .coinwidget-inner > div {
-  flex: 1;
-} */
+
 .coinwidget-inner .coinwidget--left{
   display: flex;
   flex-direction: column;
@@ -86,4 +84,25 @@
 .coinwidget-fade-exit.coinwidget-fade-exit-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
+}
+
+
+.coinwidget--right {
+  position: relative;
+  width: 100%;
+}
+.coinwidget--right .button-delete{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  opacity: .5;
+}
+.price-default{
+  display: flex;
+  align-items: center;
+}
+
+.icon-open-close{
+  opacity: .5;
+  margin-left: auto;
 }
