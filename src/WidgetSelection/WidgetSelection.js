@@ -24,7 +24,7 @@ class WidgetSelection extends Component {
 	constructor(){
 	  super();
 		this.state = {
-			isSelectionHidden: false, 
+			isSelectionHidden: true, 
 			coinlist: [], 
 			checkedCoins: [], 
 			currentCoinList: [], 
