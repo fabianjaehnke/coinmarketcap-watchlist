@@ -12,13 +12,13 @@ class WidgetList extends Component {
 			this.props.onDeleteWidget(coinID)
 		}
 	}
-	eachWidget(coindata) {
-		return(
-			<div id="game">
-				<CoinWidget key={coindata.id} coin={coindata} deleteFromList={this.removeWidget} />
-			</div>
-		)
-	}
+	// eachWidget(coindata) {
+	// 	return(
+	// 		<div id="game">
+	// 			<CoinWidget key={coindata.id} coin={coindata} deleteFromList={this.removeWidget} />
+	// 		</div>
+	// 	)
+	// }
 	
 	render() {
 		return(
